@@ -1,0 +1,299 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PodpivasEngine.ViewModels"
+             xmlns:views="using:PodpivasEngine.Views"
+             x:Class="PodpivasEngine.Views.InspectorView"
+             x:DataType="vm:InspectorViewModel">
+    <Border Classes="panel" BorderThickness="0">
+        <DockPanel>
+            <Border DockPanel.Dock="Top"
+                    Classes="panelHeader"
+                    Cursor="SizeAll"
+                    ToolTip.Tip="{DynamicResource Panel.Drag}">
+                <TextBlock Text="{DynamicResource Panel.Inspector}" Classes="header" />
+            </Border>
+            <ScrollViewer>
+                <StackPanel Spacing="10" Margin="10">
+                    <StackPanel Spacing="8" IsVisible="{Binding !HasTarget}">
+                        <TextBlock Text="{DynamicResource Inspector.Project}" Classes="header" />
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{DynamicResource Inspector.GameName}" Classes="muted" />
+                            <TextBox Classes="field"
+                                     Text="{Binding Project.GameName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{DynamicResource Inspector.GameNameHint}"
+                                       Classes="muted"
+                                       FontSize="10"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{DynamicResource Inspector.Version}" Classes="muted" />
+                            <TextBox Classes="field"
+                                     Text="{Binding Project.Version, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{DynamicResource Inspector.Renderer}" Classes="muted" />
+                            <ComboBox Classes="field"
+                                      HorizontalAlignment="Stretch"
+                                      ItemsSource="{Binding BackendLabels}"
+                                      SelectedIndex="{Binding BackendIndex, Mode=TwoWay}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{DynamicResource Inspector.MainCamera}" Classes="muted" />
+                            <ComboBox Classes="field"
+                                      HorizontalAlignment="Stretch"
+                                      ItemsSource="{Binding Cameras}"
+                                      SelectedItem="{Binding SelectedCamera, Mode=TwoWay}"
+                                      PlaceholderText="{DynamicResource Inspector.CameraNone}" />
+                            <TextBlock Text="{DynamicResource Inspector.NoCameraWarning}"
+                                       Foreground="{DynamicResource Editor.Warning}"
+                                       FontSize="10"
+                                       TextWrapping="Wrap"
+                                       IsVisible="{Binding ShowCameraWarning}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Spacing="8" IsVisible="{Binding HasTarget}">
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{DynamicResource Inspector.Name}" Classes="muted" />
+                            <TextBox Classes="field"
+                                     Text="{Binding Target.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="{DynamicResource Inspector.Type}" Classes="muted" />
+                            <TextBlock Text="{Binding TypeLabel}" />
+                        </StackPanel>
+                        <CheckBox Content="{DynamicResource Inspector.Visible}"
+                                  Classes="toggle"
+                                  IsChecked="{Binding Target.Visible, Mode=TwoWay}" />
+
+                        <Border Height="1" Background="{DynamicResource Editor.Border}" />
+
+                        <TextBlock Text="{DynamicResource Inspector.Transform}" Classes="header" />
+                        <TextBlock Text="{DynamicResource Inspector.Position}" Classes="muted" />
+
+                        <Grid ColumnDefinitions="14,*" Margin="0,0,0,2">
+                            <TextBlock Text="X" Classes="axis-x" VerticalAlignment="Center" />
+                            <views:DragNumberBox Grid.Column="1"
+                                                 Classes="field"
+                                                 Margin="6,0,0,0"
+                                                 Cursor="SizeWestEast"
+                                                 Value="{Binding Target.X, Mode=TwoWay}" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="14,*" Margin="0,0,0,2">
+                            <TextBlock Text="Y" Classes="axis-y" VerticalAlignment="Center" />
+                            <views:DragNumberBox Grid.Column="1"
+                                                 Classes="field"
+                                                 Margin="6,0,0,0"
+                                                 Cursor="SizeWestEast"
+                                                 Value="{Binding Target.Y, Mode=TwoWay}" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="14,*" IsVisible="{Binding IsThreeD}">
+                            <TextBlock Text="Z" Classes="axis-z" VerticalAlignment="Center" />
+                            <views:DragNumberBox Grid.Column="1"
+                                                 Classes="field"
+                                                 Margin="6,0,0,0"
+                                                 Cursor="SizeWestEast"
+                                                 Value="{Binding Target.Z, Mode=TwoWay}" />
+                        </Grid>
+
+                        <TextBlock Text="{DynamicResource Inspector.Rotation}" Classes="muted" Margin="0,4,0,0" />
+
+                        <Grid ColumnDefinitions="14,*" Margin="0,0,0,2" IsVisible="{Binding IsThreeD}">
+                            <TextBlock Text="X" Classes="axis-x" VerticalAlignment="Center" />
+                            <views:DragNumberBox Grid.Column="1"
+                                                 Classes="field"
+                                                 Margin="6,0,0,0"
+                                                 Cursor="SizeWestEast"
+                                                 Step="0.5"
+                                                 Value="{Binding Target.RotationX, Mode=TwoWay}" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="14,*" Margin="0,0,0,2" IsVisible="{Binding IsThreeD}">
+                            <TextBlock Text="Y" Classes="axis-y" VerticalAlignment="Center" />
+                            <views:DragNumberBox Grid.Column="1"
+                                                 Classes="field"
+                                                 Margin="6,0,0,0"
+                                                 Cursor="SizeWestEast"
+                                                 Step="0.5"
+                                                 Value="{Binding Target.RotationY, Mode=TwoWay}" />
+                        </Grid>
+
+                        <Grid ColumnDefinitions="14,*">
+                            <TextBlock Text="Z" Classes="axis-z" VerticalAlignment="Center" />
+                            <views:DragNumberBox Grid.Column="1"
+                                                 Classes="field"
+                                                 Margin="6,0,0,0"
+                                                 Cursor="SizeWestEast"
+                                                 Step="0.5"
+                                                 Value="{Binding Target.RotationZ, Mode=TwoWay}" />
+                        </Grid>
+
+                        <StackPanel Spacing="8" IsVisible="{Binding !IsCameraNode}">
+                            <TextBlock Text="{DynamicResource Inspector.Scale}" Classes="muted" />
+
+                            <Grid ColumnDefinitions="14,*" Margin="0,0,0,2">
+                                <TextBlock Text="X" Classes="axis-x" VerticalAlignment="Center" />
+                                <views:DragNumberBox Grid.Column="1"
+                                                     Classes="field"
+                                                     Margin="6,0,0,0"
+                                                     Cursor="SizeWestEast"
+                                                     Value="{Binding Target.ScaleX, Mode=TwoWay}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="14,*" Margin="0,0,0,2">
+                                <TextBlock Text="Y" Classes="axis-y" VerticalAlignment="Center" />
+                                <views:DragNumberBox Grid.Column="1"
+                                                     Classes="field"
+                                                     Margin="6,0,0,0"
+                                                     Cursor="SizeWestEast"
+                                                     Value="{Binding Target.ScaleY, Mode=TwoWay}" />
+                            </Grid>
+
+                            <Grid ColumnDefinitions="14,*" IsVisible="{Binding IsThreeD}">
+                                <TextBlock Text="Z" Classes="axis-z" VerticalAlignment="Center" />
+                                <views:DragNumberBox Grid.Column="1"
+                                                     Classes="field"
+                                                     Margin="6,0,0,0"
+                                                     Cursor="SizeWestEast"
+                                                     Value="{Binding Target.ScaleZ, Mode=TwoWay}" />
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Spacing="8" IsVisible="{Binding IsCamera}">
+                            <Border Height="1" Background="{DynamicResource Editor.Border}" />
+
+                            <TextBlock Text="{DynamicResource Inspector.Camera}" Classes="header" />
+
+                            <StackPanel Spacing="2">
+                                <TextBlock Text="{DynamicResource Inspector.Projection}" Classes="muted" />
+                                <ComboBox Classes="field"
+                                          HorizontalAlignment="Stretch"
+                                          ItemsSource="{Binding ProjectionLabels}"
+                                          SelectedIndex="{Binding ProjectionIndex, Mode=TwoWay}" />
+                            </StackPanel>
+
+                            <StackPanel Spacing="2">
+                                <TextBlock Text="{DynamicResource Inspector.FieldOfView}" Classes="muted" />
+                                <views:DragNumberBox Classes="field"
+                                                     Cursor="SizeWestEast"
+                                                     Minimum="1"
+                                                     Maximum="179"
+                                                     Step="0.5"
+                                                     Value="{Binding Target.FieldOfView, Mode=TwoWay}" />
+                            </StackPanel>
+
+                            <StackPanel Spacing="2">
+                                <TextBlock Text="{DynamicResource Inspector.FovAxis}" Classes="muted" />
+                                <ComboBox Classes="field"
+                                          HorizontalAlignment="Stretch"
+                                          ItemsSource="{Binding FovAxisLabels}"
+                                          SelectedIndex="{Binding FovAxisIndex, Mode=TwoWay}" />
+                            </StackPanel>
+
+                            <TextBlock Text="{DynamicResource Inspector.CameraHint}"
+                                       Classes="muted"
+                                       FontSize="10"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="8" IsVisible="{Binding !IsCameraNode}">
+                            <Border Height="1" Background="{DynamicResource Editor.Border}" />
+
+                            <TextBlock Text="{DynamicResource Inspector.Content}" Classes="header" />
+
+                            <StackPanel Spacing="2">
+                                <TextBlock Text="{Binding ContentLabel}" Classes="muted" />
+                                <ComboBox Classes="field"
+                                          HorizontalAlignment="Stretch"
+                                          ItemsSource="{Binding ContentAssets}"
+                                          SelectedItem="{Binding Target.Asset, Mode=TwoWay}"
+                                          PlaceholderText="{DynamicResource Inspector.AssetNone}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{DynamicResource Editor.Border}" />
+
+                        <TextBlock Text="{DynamicResource Inspector.Components}" Classes="header" />
+
+                        <TextBlock Text="{DynamicResource Inspector.ComponentsEmpty}"
+                                   Classes="muted"
+                                   FontSize="10"
+                                   TextWrapping="Wrap"
+                                   IsVisible="{Binding !HasComponents}" />
+
+                        <ItemsControl ItemsSource="{Binding Components}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ScriptComponentViewModel">
+                                    <Border Background="{DynamicResource Editor.Surface}"
+                                            CornerRadius="4"
+                                            Padding="8"
+                                            Margin="0,0,0,6">
+                                        <StackPanel Spacing="6">
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <ComboBox Classes="field"
+                                                          HorizontalAlignment="Stretch"
+                                                          ItemsSource="{Binding Scripts}"
+                                                          SelectedItem="{Binding Script, Mode=TwoWay}"
+                                                          PlaceholderText="{DynamicResource Inspector.ScriptNone}" />
+                                                <Button Grid.Column="1"
+                                                        Classes="icon"
+                                                        FontSize="11"
+                                                        Content="✕"
+                                                        Margin="4,0,0,0"
+                                                        ToolTip.Tip="{DynamicResource Inspector.RemoveComponent}"
+                                                        Command="{Binding RemoveCommand}" />
+                                            </Grid>
+                                            <ItemsControl ItemsSource="{Binding Parameters}"
+                                                          IsVisible="{Binding HasParameters}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate x:DataType="vm:ScriptParameterViewModel">
+                                                        <StackPanel Spacing="2" Margin="0,0,0,4">
+                                                            <TextBlock Text="{Binding Label}"
+                                                                       Classes="muted"
+                                                                       FontSize="10"
+                                                                       IsVisible="{Binding !IsBoolean}" />
+                                                            <TextBox Classes="field"
+                                                                     IsVisible="{Binding IsScalar}"
+                                                                     Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                            <ComboBox Classes="field"
+                                                                      HorizontalAlignment="Stretch"
+                                                                      IsVisible="{Binding IsObject}"
+                                                                      ItemsSource="{Binding SceneObjects}"
+                                                                      SelectedItem="{Binding Value, Mode=TwoWay}"
+                                                                      PlaceholderText="{DynamicResource Inspector.ObjectNone}" />
+                                                            <CheckBox Content="{Binding Label}"
+                                                                      FontSize="11"
+                                                                      IsVisible="{Binding IsBoolean}"
+                                                                      IsChecked="{Binding BooleanValue, Mode=TwoWay}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <Button Classes="chip"
+                                HorizontalAlignment="Left"
+                                FontSize="11"
+                                Content="{DynamicResource Inspector.AddComponent}"
+                                Command="{Binding AddComponentCommand}" />
+
+                        <TextBlock Text="{DynamicResource Inspector.ExportsHint}"
+                                   Classes="muted"
+                                   FontSize="10"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</UserControl>

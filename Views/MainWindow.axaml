@@ -1,0 +1,430 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:PodpivasEngine.ViewModels"
+        xmlns:views="using:PodpivasEngine.Views"
+        xmlns:models="using:PodpivasEngine.Models"
+        x:Class="PodpivasEngine.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Podpivas Engine"
+        Width="1500"
+        Height="920"
+        MinWidth="840"
+        MinHeight="560"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/avalonia-logo.ico">
+    <Grid>
+        <Grid RowDefinitions="Auto,Auto,*,Auto">
+            <Border Grid.Row="0" Background="{DynamicResource Editor.Panel}">
+                <Menu>
+                    <MenuItem Header="{DynamicResource Menu.File}">
+                        <MenuItem Header="{DynamicResource Menu.NewProject}"
+                                  Command="{Binding OpenNewProjectCommand}" />
+                        <MenuItem Header="{DynamicResource Menu.OpenProject}"
+                                  Command="{Binding OpenProjectCommand}" />
+                        <Separator />
+                        <MenuItem Header="{DynamicResource Menu.SaveProject}"
+                                  Command="{Binding SaveProjectCommand}" />
+                        <MenuItem Header="{DynamicResource Menu.SaveProjectAs}"
+                                  Command="{Binding SaveProjectAsCommand}" />
+                        <Separator />
+                        <MenuItem Header="{DynamicResource Menu.ExportGame}"
+                                  Command="{Binding ExportProjectCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource Menu.View}">
+                        <MenuItem Header="{DynamicResource Menu.Windows}">
+                            <MenuItem Header="{DynamicResource Panel.Hierarchy}"
+                                      ToggleType="CheckBox"
+                                      IsChecked="{Binding IsLeftPanelVisible, Mode=TwoWay}" />
+                            <MenuItem Header="{DynamicResource Panel.Assets}"
+                                      ToggleType="CheckBox"
+                                      IsChecked="{Binding IsAssetBrowserVisible, Mode=TwoWay}" />
+                            <MenuItem Header="{DynamicResource Panel.Inspector}"
+                                      ToggleType="CheckBox"
+                                      IsChecked="{Binding IsRightPanelVisible, Mode=TwoWay}" />
+                            <MenuItem Header="{DynamicResource Panel.Console}"
+                                      ToggleType="CheckBox"
+                                      IsChecked="{Binding IsConsoleVisible, Mode=TwoWay}" />
+                            <MenuItem Header="{DynamicResource Panel.Stats}"
+                                      ToggleType="CheckBox"
+                                      IsChecked="{Binding IsStatsVisible, Mode=TwoWay}" />
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Menu.Language}">
+                            <MenuItem Header="{DynamicResource Menu.Language.Russian}"
+                                      ToggleType="Radio"
+                                      IsChecked="{Binding IsRussian, Mode=OneWay}"
+                                      Command="{Binding SetLanguageCommand}"
+                                      CommandParameter="ru" />
+                            <MenuItem Header="{DynamicResource Menu.Language.English}"
+                                      ToggleType="Radio"
+                                      IsChecked="{Binding IsEnglish, Mode=OneWay}"
+                                      Command="{Binding SetLanguageCommand}"
+                                      CommandParameter="en" />
+                        </MenuItem>
+                    </MenuItem>
+                </Menu>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Background="{DynamicResource Editor.PanelAlt}"
+                    BorderBrush="{DynamicResource Editor.Border}"
+                    BorderThickness="0,1,0,1">
+                <Grid ColumnDefinitions="Auto,*,Auto" Margin="8,4">
+                    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <TextBlock Text="Podpivas Engine" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding Project.Name}"
+                                   Classes="muted"
+                                   MaxWidth="180"
+                                   TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="2"
+                                HorizontalAlignment="Center">
+                        <Button Classes="icon"
+                                Classes.active="{Binding Runtime.IsPlaying}"
+                                Content="▶"
+                                ToolTip.Tip="{DynamicResource Toolbar.Play}"
+                                Command="{Binding PlayCommand}" />
+                        <Button Classes="icon"
+                                Classes.active="{Binding Runtime.IsPaused}"
+                                Content="❚❚"
+                                ToolTip.Tip="{DynamicResource Toolbar.Pause}"
+                                Command="{Binding PauseCommand}" />
+                        <Button Classes="icon"
+                                Content="■"
+                                ToolTip.Tip="{DynamicResource Toolbar.Stop}"
+                                Command="{Binding StopCommand}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2"
+                                Orientation="Horizontal"
+                                Spacing="2"
+                                VerticalAlignment="Center">
+                        <Button Classes="icon"
+                                Classes.active="{Binding IsSelectTool}"
+                                ToolTip.Tip="{DynamicResource Toolbar.Select}"
+                                Command="{Binding SetToolCommand}"
+                                CommandParameter="Select">
+                            <Path Width="17" Height="17"
+                                  Stretch="Uniform"
+                                  Fill="{Binding $parent[Button].Foreground}"
+                                  Data="{StaticResource Icon.ToolSelect}" />
+                        </Button>
+                        <Button Classes="icon"
+                                Classes.active="{Binding IsMoveTool}"
+                                ToolTip.Tip="{DynamicResource Toolbar.Move}"
+                                Command="{Binding SetToolCommand}"
+                                CommandParameter="Move">
+                            <Path Width="17" Height="17"
+                                  Stretch="Uniform"
+                                  Fill="{Binding $parent[Button].Foreground}"
+                                  Data="{StaticResource Icon.ToolMove}" />
+                        </Button>
+                        <Button Classes="icon"
+                                Classes.active="{Binding IsRotateTool}"
+                                ToolTip.Tip="{DynamicResource Toolbar.Rotate}"
+                                Command="{Binding SetToolCommand}"
+                                CommandParameter="Rotate">
+                            <Viewbox Width="18" Height="18">
+                                <Canvas Width="24" Height="24">
+                                    <Path Data="M4.27 9.93A8 8 0 0 1 14.74 4.48"
+                                          Stroke="#ef4444"
+                                          StrokeThickness="2"
+                                          StrokeLineCap="Round" />
+                                    <Path Data="M17.14 5.87A8 8 0 0 1 17.66 17.66"
+                                          Stroke="#22c55e"
+                                          StrokeThickness="2"
+                                          StrokeLineCap="Round" />
+                                    <Path Data="M15.38 19.25A8 8 0 0 1 4.48 14.74"
+                                          Stroke="#3b82f6"
+                                          StrokeThickness="2"
+                                          StrokeLineCap="Round" />
+                                </Canvas>
+                            </Viewbox>
+                        </Button>
+                        <Button Classes="icon"
+                                Classes.active="{Binding IsScaleTool}"
+                                ToolTip.Tip="{DynamicResource Toolbar.Scale}"
+                                Command="{Binding SetToolCommand}"
+                                CommandParameter="Scale">
+                            <Path Width="18" Height="18"
+                                  Stretch="Uniform"
+                                  Stroke="{Binding $parent[Button].Foreground}"
+                                  StrokeThickness="1.6"
+                                  StrokeLineCap="Round"
+                                  StrokeJoin="Round"
+                                  Data="{StaticResource Icon.ToolScale}" />
+                        </Button>
+                        <Border Width="1"
+                                Margin="6,2"
+                                Background="{DynamicResource Editor.Border}" />
+                        <Border Background="{DynamicResource Editor.Surface}"
+                                CornerRadius="4"
+                                Padding="8,3"
+                                VerticalAlignment="Center"
+                                IsVisible="{Binding HasUnsavedChanges}">
+                            <TextBlock Text="{DynamicResource Toolbar.UnsavedChanges}"
+                                       FontSize="11"
+                                       Foreground="{DynamicResource Editor.Warning}" />
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="2"
+                  x:Name="DockRoot"
+                  ColumnDefinitions="0,0,*,0,0"
+                  RowDefinitions="*,0,0">
+                <Grid x:Name="LeftDock" Grid.Column="0" Grid.RowSpan="3">
+                    <Border x:Name="HierarchyPanel">
+                        <views:SceneHierarchyView DataContext="{Binding Hierarchy}" />
+                    </Border>
+                    <Border x:Name="AssetsPanel">
+                        <views:AssetBrowserView DataContext="{Binding Assets}" />
+                    </Border>
+                </Grid>
+
+                <GridSplitter x:Name="LeftSplitter"
+                              Grid.Column="1"
+                              Grid.RowSpan="3"
+                              ResizeDirection="Columns"
+                              ResizeBehavior="PreviousAndNext"
+                              Background="{DynamicResource Editor.Border}" />
+
+                <Grid x:Name="WorkspaceArea" Grid.Column="2">
+                    <TabControl Classes="tabs"
+                                SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+                        <TabItem Header="{DynamicResource Viewport.Scene}">
+                            <Grid>
+                                <views:EditorViewport />
+                                <Border IsVisible="{Binding IsStatsVisible}"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Margin="10">
+                                    <views:StatsView DataContext="{Binding Stats}" />
+                                </Border>
+                                <Border HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Margin="10"
+                                        Padding="8,3"
+                                        CornerRadius="4"
+                                        Background="#CC0A0A0A"
+                                        BorderBrush="{DynamicResource Editor.Border}"
+                                        BorderThickness="1"
+                                        IsHitTestVisible="False">
+                                    <TextBlock Text="{DynamicResource Viewport.ContextHint}"
+                                               Classes="muted"
+                                               FontSize="11" />
+                                </Border>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="{DynamicResource Viewport.Game}">
+                            <Grid>
+                                <views:RuntimeView DataContext="{Binding Runtime}" />
+
+                                <Border HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        Margin="10"
+                                        Padding="8,3"
+                                        CornerRadius="4"
+                                        Background="#CC0A0A0A"
+                                        BorderBrush="{DynamicResource Editor.Border}"
+                                        BorderThickness="1">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <TextBlock Text="{Binding Runtime.SpaceLabel}" Classes="value" FontSize="11" />
+                                        <TextBlock Text="·" Classes="muted" FontSize="11" />
+                                        <TextBlock Text="{Binding Runtime.Backend}" Classes="value" FontSize="11" />
+                                    </StackPanel>
+                                </Border>
+
+                                <Border HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Padding="14,6"
+                                        CornerRadius="4"
+                                        Background="#CC0A0A0A"
+                                        BorderBrush="{DynamicResource Editor.Border}"
+                                        BorderThickness="1"
+                                        IsVisible="{Binding Runtime.ShowStartHint}">
+                                    <TextBlock Text="{DynamicResource Runtime.StartHint}" Classes="muted" />
+                                </Border>
+
+                                <Border HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Padding="14,6"
+                                        CornerRadius="4"
+                                        Background="#CC0A0A0A"
+                                        BorderBrush="{DynamicResource Editor.Border}"
+                                        BorderThickness="1"
+                                        IsVisible="{Binding Runtime.ShowPausedHint}">
+                                    <TextBlock Text="{DynamicResource Runtime.PausedHint}" Classes="value" />
+                                </Border>
+
+                                <TextBlock Text="{DynamicResource Runtime.Controls}"
+                                           Classes="muted"
+                                           FontSize="11"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Bottom"
+                                           Margin="10"
+                                           IsVisible="{Binding Runtime.IsPlaying}" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="{DynamicResource Viewport.Script}">
+                            <views:ScriptEditorView DataContext="{Binding ScriptEditor}" />
+                        </TabItem>
+                        <TabItem Header="{DynamicResource Viewport.Preview}"
+                                 IsVisible="{Binding IsPreviewTabVisible}">
+                            <views:PreviewView DataContext="{Binding Preview}" />
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+
+                <GridSplitter x:Name="BottomSplitter"
+                              Grid.Column="2"
+                              Grid.Row="1"
+                              ResizeDirection="Rows"
+                              ResizeBehavior="PreviousAndNext"
+                              Background="{DynamicResource Editor.Border}" />
+
+                <Grid x:Name="BottomDock" Grid.Column="2" Grid.Row="2">
+                    <Border x:Name="ConsolePanel">
+                        <views:ConsoleView DataContext="{Binding Console}" />
+                    </Border>
+                </Grid>
+
+                <GridSplitter x:Name="RightSplitter"
+                              Grid.Column="3"
+                              Grid.RowSpan="3"
+                              ResizeDirection="Columns"
+                              ResizeBehavior="PreviousAndNext"
+                              Background="{DynamicResource Editor.Border}" />
+
+                <Grid x:Name="RightDock" Grid.Column="4" Grid.RowSpan="3">
+                    <Border x:Name="InspectorPanel">
+                        <views:InspectorView DataContext="{Binding Inspector}" />
+                    </Border>
+                </Grid>
+
+                <Canvas x:Name="DropOverlay"
+                        Grid.ColumnSpan="5"
+                        Grid.RowSpan="3"
+                        IsVisible="False"
+                        IsHitTestVisible="False">
+                    <Border x:Name="DropLeftZone"
+                            Background="{DynamicResource Editor.AccentSoft}"
+                            BorderBrush="{DynamicResource Editor.Accent}"
+                            BorderThickness="1"
+                            Opacity="0.3" />
+                    <Border x:Name="DropRightZone"
+                            Background="{DynamicResource Editor.AccentSoft}"
+                            BorderBrush="{DynamicResource Editor.Accent}"
+                            BorderThickness="1"
+                            Opacity="0.3" />
+                    <Border x:Name="DropBottomZone"
+                            Background="{DynamicResource Editor.AccentSoft}"
+                            BorderBrush="{DynamicResource Editor.Accent}"
+                            BorderThickness="1"
+                            Opacity="0.3" />
+                </Canvas>
+            </Grid>
+
+            <Border Grid.Row="3"
+                    Height="26"
+                    Background="{DynamicResource Editor.PanelAlt}"
+                    BorderBrush="{DynamicResource Editor.Border}"
+                    BorderThickness="0,1,0,0">
+                <Grid ColumnDefinitions="*,Auto" Margin="10,0">
+                    <StackPanel Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <Ellipse Width="7"
+                                 Height="7"
+                                 Fill="{DynamicResource Editor.Success}"
+                                 VerticalAlignment="Center" />
+                        <TextBlock Text="{DynamicResource Status.Ready}" Classes="muted" />
+                        <TextBlock Text="·" Classes="muted" />
+                        <TextBlock Text="{DynamicResource Status.Tool}" Classes="muted" />
+                        <TextBlock Text="{Binding ToolLabel}" Foreground="{DynamicResource Editor.Orange}" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding ProjectLocation}"
+                                   Classes="muted"
+                                   MaxWidth="420"
+                                   TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="·" Classes="muted" />
+                        <TextBlock Text="{Binding Stats.Backend}" Classes="value" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border IsVisible="{Binding IsNewProjectOpen}" Background="#B3000000">
+            <Border Width="460"
+                    Padding="18"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    CornerRadius="8"
+                    Background="{DynamicResource Editor.Panel}"
+                    BorderBrush="{DynamicResource Editor.Border}"
+                    BorderThickness="1">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="{DynamicResource NewProject.Title}"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,4" />
+                    <TextBlock Text="{DynamicResource NewProject.Name}" Classes="muted" />
+                    <TextBox Classes="field"
+                             Text="{Binding NewProject.Name}"
+                             PlaceholderText="{DynamicResource NewProject.DefaultName}" />
+                    <TextBlock Text="{DynamicResource NewProject.Space}" Classes="muted" Margin="0,4,0,0" />
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <Button Classes="chip"
+                                Classes.active="{Binding NewProject.IsTwoD}"
+                                Content="2D"
+                                Command="{Binding NewProject.SetSpaceCommand}"
+                                CommandParameter="2D" />
+                        <Button Classes="chip"
+                                Classes.active="{Binding NewProject.IsThreeD}"
+                                Content="3D"
+                                Command="{Binding NewProject.SetSpaceCommand}"
+                                CommandParameter="3D" />
+                    </StackPanel>
+                    <TextBlock Text="{DynamicResource NewProject.Renderer}" Classes="muted" Margin="0,4,0,0" />
+                    <ListBox Classes="backends"
+                             HorizontalAlignment="Left"
+                             ItemsSource="{Binding NewProject.Backends}"
+                             SelectedItem="{Binding NewProject.Backend, Mode=TwoWay}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:RenderBackend">
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                    <TextBlock Text="{DynamicResource NewProject.RendererHint}"
+                               Classes="muted"
+                               TextWrapping="Wrap"
+                               FontSize="11" />
+                    <TextBlock Text="{DynamicResource NewProject.Folder}"
+                               Classes="muted"
+                               Margin="0,6,0,0" />
+                    <TextBlock Text="{Binding NewProject.TargetFolder}"
+                               FontSize="11"
+                               TextWrapping="Wrap" />
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Spacing="8"
+                                Margin="0,8,0,0">
+                        <Button Content="{DynamicResource NewProject.Cancel}"
+                                Command="{Binding CancelNewProjectCommand}" />
+                        <Button Classes="accent"
+                                Content="{DynamicResource NewProject.Create}"
+                                Command="{Binding CreateProjectCommand}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

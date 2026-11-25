@@ -1,0 +1,190 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <SolidColorBrush x:Key="Editor.Background" Color="#0B0B0B" />
+        <SolidColorBrush x:Key="Editor.Panel" Color="#0A0A0A" />
+        <SolidColorBrush x:Key="Editor.PanelAlt" Color="#111111" />
+        <SolidColorBrush x:Key="Editor.PanelHeader" Color="#101010" />
+        <SolidColorBrush x:Key="Editor.Surface" Color="#1A1A1A" />
+        <SolidColorBrush x:Key="Editor.Border" Color="#262626" />
+        <SolidColorBrush x:Key="Editor.Foreground" Color="#D9D9D9" />
+        <SolidColorBrush x:Key="Editor.Muted" Color="#8A8A8A" />
+        <SolidColorBrush x:Key="Editor.Value" Color="#E4E4E4" />
+        <SolidColorBrush x:Key="Editor.Accent" Color="#0EA800" />
+        <SolidColorBrush x:Key="Editor.AccentSoft" Color="#0C2A09" />
+        <SolidColorBrush x:Key="Editor.Hover" Color="#1C1C1C" />
+        <SolidColorBrush x:Key="Editor.Viewport" Color="#080808" />
+        <SolidColorBrush x:Key="Editor.Success" Color="#22C57C" />
+        <SolidColorBrush x:Key="Editor.Lime" Color="#B7D34A" />
+        <SolidColorBrush x:Key="Editor.Camera" Color="#4E79D5" />
+        <SolidColorBrush x:Key="Editor.Orange" Color="#C98B52" />
+        <SolidColorBrush x:Key="Editor.Warning" Color="#E5B84D" />
+
+        <StreamGeometry x:Key="Icon.ToolSelect">M325.12 180.3264c31.9488-11.264 70.7584 19.1488 148.2752 79.9744l180.5312 141.824c88.576 69.632 132.9152 104.3456 127.3856 139.776a61.6448 61.6448 0 0 1-3.8912 13.9264c-6.8608 16.6912-24.2688 26.7264-54.0672 34.304-51.9168 13.312-77.824 19.8656-86.3232 36.2496a38.4 38.4 0 0 0-2.8672 7.168c-5.2224 17.7152 7.68 38.1952 33.3824 79.0528l4.9152 7.7824a82.7392 82.7392 0 1 1-147.8656 72.0896l-3.072-8.704c-16.4864-45.4656-24.6784-68.096-41.8816-74.9568a38.2976 38.2976 0 0 0-7.3728-2.048c-18.1248-3.584-39.3216 12.8-81.6128 45.6704-24.3712 18.8416-43.008 26.4192-60.416 21.504a61.8496 61.8496 0 0 1-13.312-5.4272c-31.4368-17.6128-31.5392-73.9328-31.744-186.368l-0.6144-229.6832c-0.2048-98.6112-0.3072-147.968 28.2624-166.0928a61.6448 61.6448 0 0 1 12.288-6.0416z</StreamGeometry>
+        <StreamGeometry x:Key="Icon.ToolMove">M86.7 15.8c-7.7 7.8-9.1 10.4-6 11.6q1.6 .8 6.3 -3.9a32 32 0 0 1 5.1 -4.5c.3 0 .4 10.7 .2 23.7L92 71.2V76l-13.9 6.9c-7.6 3.9-14.6 7.7-15.5 8.6-1.3 1.4-1.6 4-1.6 15.3v13.7L39.8 132l-21.9 11.8c-.4 .2 .2 -2.5 1.2 -5.9 2.2 -7.1 1.9 -9.2 -1.2 -8.7-1.8 .2 -2.8 2.1 -5.5 10.7-1.8 5.7-3 10.9 -2.7 11.6s5.2 2.7 11.1 4.3c8.9 2.5 10.9 2.8 12.1 1.7q3.6 -3.4 -5.9 -6.1c-3.4 -.9 -5.7 -2.1 -5.3 -2.5s10.2 -6 21.7 -12.3l20.9 -11.4 14.9 7.4c8.1 4.1 15.5 7.4 16.5 7.4s8.1 -3.4 16 -7.5l14.4 -7.5 22 12.2 22 12.2-6.2 1.8c-7.1 2-8.4 3-7.5 5.4 .5 1.3 1.4 1.5 4 1.1a69 69 0 0 0 20 -6.2c.2 -.7 -1 -6 -2.8 -11.7-2.6 -8.4 -3.6 -10.4 -5.3 -10.6-3 -.4 -3.4 1.8 -1.3 8.4 1 3.3 1.7 6 1.6 6.2-.3 .2 -13 -6.6 -31.6 -17.1l-11.5 -6.4-.5 -14.4-.5 -14.4-15.2 -8L98 75.6v-58l5.4 5.3c4.7 4.6 5.7 5.2 7 4.1q1.5 -1.2 1.6 -2.2C112 23.4 96.9 8 95.6 8c-.7 0-4.6 3.5-8.9 7.8m23.8 72.7l12.6 6.6-.3 12.6-.3 12.6-13.4 7-13.4 7-14.3 -7.1L67 120V95l13.8 -7a77 77 0 0 1 15.4 -6.6c.9 .2 7.3 3.4 14.3 7.1</StreamGeometry>
+        <StreamGeometry x:Key="Icon.ToolScale">m20 19 -8 -5.5L4 19 M12 4v9.5 M11 4a1 1 0 1 0 2 0 1 1 0 1 0 -2 0 M3 19a1 1 0 1 0 2 0 1 1 0 1 0 -2 0 M19 19a1 1 0 1 0 2 0 1 1 0 1 0 -2 0</StreamGeometry>
+    </Styles.Resources>
+
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{DynamicResource Editor.Background}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style Selector="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Foreground}" />
+    </Style>
+
+    <Style Selector="TextBlock.muted">
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Muted}" />
+    </Style>
+
+    <Style Selector="TextBlock.value">
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Value}" />
+    </Style>
+
+    <Style Selector="TextBlock.success">
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Success}" />
+    </Style>
+
+    <Style Selector="TextBlock.lime">
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Lime}" />
+    </Style>
+
+    <Style Selector="TextBlock.axis-x">
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Accent}" />
+    </Style>
+
+    <Style Selector="TextBlock.axis-y">
+        <Setter Property="Foreground" Value="#E5484D" />
+    </Style>
+
+    <Style Selector="TextBlock.axis-z">
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Camera}" />
+    </Style>
+
+    <Style Selector="TextBlock.header">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Muted}" />
+    </Style>
+
+    <Style Selector="TextBlock.glyph">
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Accent}" />
+    </Style>
+
+    <Style Selector="Border.panel">
+        <Setter Property="Background" Value="{DynamicResource Editor.Panel}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Editor.Border}" />
+    </Style>
+
+    <Style Selector="Border.panel.dropTarget">
+        <Setter Property="Background" Value="{DynamicResource Editor.AccentSoft}" />
+    </Style>
+
+    <Style Selector="Border.panelHeader">
+        <Setter Property="Background" Value="{DynamicResource Editor.PanelHeader}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Editor.Border}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Padding" Value="10,7" />
+    </Style>
+
+    <Style Selector="Button.icon">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="MinWidth" Value="28" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Foreground}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style Selector="Button.icon:pointerover">
+        <Setter Property="Background" Value="{DynamicResource Editor.Hover}" />
+    </Style>
+
+    <Style Selector="Button.icon.active">
+        <Setter Property="Background" Value="{DynamicResource Editor.AccentSoft}" />
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Accent}" />
+    </Style>
+
+    <Style Selector="Button.accent">
+        <Setter Property="Background" Value="{DynamicResource Editor.Accent}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="14,5" />
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+
+    <Style Selector="Button.chip">
+        <Setter Property="Background" Value="{DynamicResource Editor.Surface}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Editor.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Padding" Value="16,4" />
+        <Setter Property="MinWidth" Value="60" />
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Foreground}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style Selector="Button.chip:pointerover">
+        <Setter Property="Background" Value="{DynamicResource Editor.Hover}" />
+    </Style>
+
+    <Style Selector="Button.chip.active">
+        <Setter Property="Background" Value="{DynamicResource Editor.AccentSoft}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Editor.Accent}" />
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Accent}" />
+    </Style>
+
+    <Style Selector="TextBox.field">
+        <Setter Property="Background" Value="{DynamicResource Editor.Surface}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Editor.Border}" />
+        <Setter Property="Padding" Value="6,3" />
+        <Setter Property="MinHeight" Value="26" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style Selector="TreeView">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style Selector="TreeViewItem">
+        <Setter Property="MinHeight" Value="22" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="IsExpanded" Value="True" />
+    </Style>
+
+    <Style Selector="TreeViewItem:selected">
+        <Setter Property="Background" Value="{DynamicResource Editor.AccentSoft}" />
+        <Setter Property="Foreground" Value="{DynamicResource Editor.Accent}" />
+    </Style>
+
+    <Style Selector="TreeViewItem:selected /template/ Border">
+        <Setter Property="Background" Value="{DynamicResource Editor.AccentSoft}" />
+    </Style>
+
+    <Style Selector="TabControl.tabs">
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style Selector="TabControl.tabs TabItem">
+        <Setter Property="MinHeight" Value="28" />
+        <Setter Property="Padding" Value="12,2" />
+        <Setter Property="FontSize" Value="11" />
+    </Style>
+
+    <Style Selector="ListBox.backends">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style Selector="ListBox.backends ListBoxItem">
+        <Setter Property="Padding" Value="12,4" />
+        <Setter Property="Margin" Value="0,0,6,0" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Background" Value="{DynamicResource Editor.Surface}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+</Styles>

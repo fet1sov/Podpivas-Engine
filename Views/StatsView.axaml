@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PodpivasEngine.ViewModels"
+             x:Class="PodpivasEngine.Views.StatsView"
+             x:DataType="vm:StatsViewModel">
+    <Border Classes="panel"
+            Width="210"
+            Padding="10"
+            CornerRadius="4">
+        <StackPanel Spacing="2">
+            <TextBlock Text="{DynamicResource Panel.Stats}" Classes="header" Margin="0,0,0,4" />
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Fps}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Fps}" Classes="value success" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Frame}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Frame}" Classes="value" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.DrawCalls}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding DrawCalls}" Classes="value" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Triangles}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Triangles}" Classes="value" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Vertices}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Vertices}" Classes="value" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Vram}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Vram}" Classes="value" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Textures}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Textures}" Classes="value" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Buffers}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Buffers}" Classes="value" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Backend}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Backend}" Classes="value lime" />
+            </Grid>
+            <Grid ColumnDefinitions="*,Auto" Margin="0,1">
+                <TextBlock Text="{DynamicResource Stats.Resolution}" Classes="muted" />
+                <TextBlock Grid.Column="1" Text="{Binding Resolution}" Classes="value" />
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>

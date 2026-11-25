@@ -1,0 +1,23 @@
+.gigatool
+
+# .NET / build artifacts
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userprefs
+*.pidb
+
+# Avalonia / desktop publishing
+publish/
+*.app.tar.gz
+*.app.zip
+Releases/
+artifacts/
+*.nupkg
+*.snupkg
+.idea/
+.vs/
+.vscode/

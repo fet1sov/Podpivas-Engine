@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PodpivasEngine.ViewModels"
+             xmlns:models="using:PodpivasEngine.Models"
+             x:Class="PodpivasEngine.Views.SceneHierarchyView"
+             x:DataType="vm:HierarchyViewModel">
+    <Border Classes="panel" BorderThickness="0">
+        <DockPanel>
+            <Border DockPanel.Dock="Top"
+                    Classes="panelHeader"
+                    Cursor="SizeAll"
+                    ToolTip.Tip="{DynamicResource Panel.Drag}">
+                <TextBlock Text="{DynamicResource Panel.Hierarchy}" Classes="header" />
+            </Border>
+            <Border DockPanel.Dock="Bottom"
+                    Classes="panelHeader"
+                    BorderThickness="0,1,0,0"
+                    Padding="10,4">
+                <TextBlock Text="{DynamicResource Hierarchy.Hint}" Classes="muted" FontSize="10" />
+            </Border>
+            <TreeView x:Name="Tree"
+                      ItemsSource="{Binding Roots}"
+                      SelectionMode="Multiple"
+                      SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
+                      Margin="4,6"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <TreeView.ItemTemplate>
+                    <TreeDataTemplate x:DataType="models:SceneNode" ItemsSource="{Binding Children}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="{Binding Glyph}" Classes="glyph" />
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </TreeDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </DockPanel>
+    </Border>
+</UserControl>

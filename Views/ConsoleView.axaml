@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PodpivasEngine.ViewModels"
+             xmlns:models="using:PodpivasEngine.Models"
+             x:Class="PodpivasEngine.Views.ConsoleView"
+             x:DataType="vm:ConsoleViewModel">
+    <Border Classes="panel" BorderThickness="0">
+        <DockPanel>
+            <Border DockPanel.Dock="Top"
+                    Classes="panelHeader"
+                    Cursor="SizeAll"
+                    ToolTip.Tip="{DynamicResource Panel.Drag}">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <TextBlock Text="{DynamicResource Panel.Console}" Classes="header" VerticalAlignment="Center" />
+                    <Button Grid.Column="2"
+                            Classes="icon"
+                            FontSize="11"
+                            Content="{DynamicResource Console.Clear}"
+                            Command="{Binding ClearCommand}" />
+                </Grid>
+            </Border>
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Messages}" Margin="10,6">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:ConsoleMessage">
+                            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,1">
+                                <TextBlock Text="{Binding Time}" Classes="muted" />
+                                <TextBlock Text="{Binding Text}"
+                                           Foreground="{Binding Accent}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</UserControl>

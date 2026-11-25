@@ -1,0 +1,24 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PodpivasEngine.App"
+             xmlns:local="using:PodpivasEngine"
+             RequestedThemeVariant="Dark">
+    <Application.Resources>
+        <Color x:Key="SystemAccentColor">#0EA800</Color>
+        <Color x:Key="SystemAccentColorDark1">#0C8F00</Color>
+        <Color x:Key="SystemAccentColorDark2">#0A7500</Color>
+        <Color x:Key="SystemAccentColorDark3">#085B00</Color>
+        <Color x:Key="SystemAccentColorLight1">#16C200</Color>
+        <Color x:Key="SystemAccentColorLight2">#1ED600</Color>
+        <Color x:Key="SystemAccentColorLight3">#2AE914</Color>
+    </Application.Resources>
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
+        <StyleInclude Source="avares://PodpivasEngine/Styles/EditorTheme.axaml" />
+    </Application.Styles>
+</Application>

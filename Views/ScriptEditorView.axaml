@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PodpivasEngine.ViewModels"
+             xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+             x:Class="PodpivasEngine.Views.ScriptEditorView"
+             x:DataType="vm:ScriptEditorViewModel">
+    <Border Classes="panel">
+        <DockPanel>
+            <Border DockPanel.Dock="Top" Classes="panelHeader">
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                    <TextBlock Text="{DynamicResource Panel.Script}"
+                               Classes="header"
+                               VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1"
+                               Margin="10,0"
+                               Text="{Binding FileName}"
+                               Classes="value"
+                               FontSize="11"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock Grid.Column="2"
+                               Text="●"
+                               FontSize="10"
+                               Margin="0,0,8,0"
+                               VerticalAlignment="Center"
+                               Foreground="{DynamicResource Editor.Orange}"
+                               IsVisible="{Binding IsModified}" />
+                    <Button Grid.Column="3"
+                            Classes="icon"
+                            FontSize="11"
+                            Content="{DynamicResource Script.Save}"
+                            Command="{Binding SaveScriptCommand}" />
+                </Grid>
+            </Border>
+            <Border DockPanel.Dock="Bottom"
+                    Classes="panelHeader"
+                    BorderThickness="0,1,0,0"
+                    Padding="10,4">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Text="{Binding Status}"
+                               FontSize="11"
+                               TextWrapping="Wrap"
+                               IsVisible="{Binding HasError}"
+                               Foreground="{DynamicResource Editor.Accent}" />
+                    <TextBlock Grid.Column="1"
+                               Text="{DynamicResource Script.Hint}"
+                               Classes="muted"
+                               FontSize="10" />
+                </Grid>
+            </Border>
+            <Grid>
+                <TextBlock Text="{DynamicResource Script.Empty}"
+                           Classes="muted"
+                           MaxWidth="460"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           IsVisible="{Binding !IsOpen}" />
+                <ae:TextEditor x:Name="Editor"
+                               IsVisible="{Binding IsOpen}"
+                               FontFamily="Cascadia Mono, Consolas, monospace"
+                               FontSize="13"
+                               Padding="4"
+                               Background="{DynamicResource Editor.Background}"
+                               Foreground="{DynamicResource Editor.Foreground}"
+                               LineNumbersForeground="{DynamicResource Editor.Muted}"
+                               ShowLineNumbers="True" />
+            </Grid>
+        </DockPanel>
+    </Border>
+</UserControl>
